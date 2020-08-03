@@ -7,7 +7,7 @@
         "method": "POST",
         "headers": {
             "x-rapidapi-host": "Spotifystefan-skliarovV1.p.rapidapi.com",
-            "x-rapidapi-key": "8a84a6d322msh003aff95e915e9fp161216jsn3196639c0c6d",
+            "x-rapidapi-key": "insert your key so we wont expose our keys online",
             "content-type": "application/x-www-form-urlencoded"
         },
         "body": {
