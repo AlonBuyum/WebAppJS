@@ -1,18 +1,47 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title>Spotify Test</title>
-    <script src="./index1.js">
+    <title>WebAppJS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="./index1.js" type="text/javascript"></script>
 
-    </script>
 </head>
-<body>
-    <p> Hello NBA</p>
-    <button id="resBTN">Test API</button>
-    <div id="contentEl">
-       content 
+
+<body class="container">
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+        <h1> Hello NBA</h1>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div>
+                    <form name="searchDetails" method="GET">
+                        <fieldset>
+                            <div>
+                                <input id="teamName" type="text" placeholder="Enter team name"/>
+                            </div>
+                            <div>
+                                <input id="playerName" type="text" placeholder="Enter player name"/>
+                            </div>
+
+                        </fieldset>
+                        
+                        <input id="resBTN" type="button" value="Test API" class="btn btn-primary" />
+
+                    </form>
+                    <!-- <button id="resBTN">Test API</button> -->
+                    <div id="contentEl"  class="alert alert-primary" role="alert">
+                        <strong>content</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
