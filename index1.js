@@ -50,22 +50,30 @@ import { NBAService } from './modules/apiServices.js';
         const inputGroup = document.getElementById("group");
         const inputSpecific = document.getElementById("specific");
         console.log(`entered group: ${inputGroup.value} | entered specific: ${inputSpecific.value}`);
-        async function resAsync() {
-            nbaServ.getSpecific(inputGroup.value, inputSpecific.value);
-        // הבעיה שלי היא פה. אני לא מצליח לקבל המתנה לתשובה 
-        /*let result = await nbaServ.getJsonValue()
-        .then((d)=>{
-            console.log(d);
-            relayResponse(d);
-        })
-        .catch(err => console.log(err));*/
-         }
-         resAsync();
-         async function relayAsync() {
-            let result = await nbaServ.getJsonValue();
-            callRelay(result,relayResponse);
-         }
-         relayAsync();
+        nbaServ.getSpecific(inputGroup.value, inputSpecific.value);
+         async function resAsync() {
+            //await nbaServ.getJsonValue();
+           let jsonRes=  new Promise((res, rej) => {
+            res(nbaServ.getJsonValue());
+        });
+            let res = await jsonRes;
+            console.log(res);
+           
+            // הבעיה שלי היא פה. אני לא מצליח לקבל המתנה לתשובה 
+            /*let result = await nbaServ.getJsonValue()
+            .then((d)=>{
+                console.log(d);
+                relayResponse(d);
+            })
+            .catch(err => console.log(err));*/
+        }
+        resAsync();
+        //relayResponse(res);
+        // async function relayAsync() {
+        //     let result = await nbaServ.getJsonValue();
+        //     callRelay(result, relayResponse);
+        // }
+        // relayAsync();
         console.log('end of getResponse');
     }
 
@@ -80,7 +88,7 @@ import { NBAService } from './modules/apiServices.js';
         // send contentArr to be filtered at this point
         displayResults(contentArr);
     }
-    
+
 
     function displayResults(filteredResults) {
         const resContEL = document.getElementById("contentEl");

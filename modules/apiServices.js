@@ -18,7 +18,7 @@ class NBAService {
         this.resJson = v;
     }
 
-    getSpecific(group, individual) {
+     getSpecific(group, individual) {
 
 
         console.log(`in getSpecific - group is ${group}, individual is ${individual}`);
