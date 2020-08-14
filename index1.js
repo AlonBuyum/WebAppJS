@@ -5,7 +5,7 @@ import { NBAService } from './modules/apiServices.js';
 
     document.addEventListener("DOMContentLoaded", () => {
         const btnEl = document.getElementById("resBTN");
-        btnEl.addEventListener("click", getResponse, false);
+        btnEl.addEventListener("click", getResponseAsync, false);
     });
     //#region 
     // function getResponse() {
@@ -46,41 +46,16 @@ import { NBAService } from './modules/apiServices.js';
     //     response();
     // }
     //#endregion
-    function getResponse() {
+    async function getResponseAsync() {
         const inputGroup = document.getElementById("group");
         const inputSpecific = document.getElementById("specific");
         console.log(`entered group: ${inputGroup.value} | entered specific: ${inputSpecific.value}`);
-        nbaServ.getSpecific(inputGroup.value, inputSpecific.value);
-         async function resAsync() {
-            //await nbaServ.getJsonValue();
-           let jsonRes=  new Promise((res, rej) => {
-            res(nbaServ.getJsonValue());
-        });
-            let res = await jsonRes;
-            console.log(res);
-           
-            // הבעיה שלי היא פה. אני לא מצליח לקבל המתנה לתשובה 
-            /*let result = await nbaServ.getJsonValue()
-            .then((d)=>{
-                console.log(d);
-                relayResponse(d);
-            })
-            .catch(err => console.log(err));*/
-        }
-        resAsync();
-        //relayResponse(res);
-        // async function relayAsync() {
-        //     let result = await nbaServ.getJsonValue();
-        //     callRelay(result, relayResponse);
-        // }
-        // relayAsync();
+        await nbaServ.getSpecificAsync(inputGroup.value, inputSpecific.value);
+        let res = nbaServ.getJsonValue();
+        relayResponse(res);
         console.log('end of getResponse');
     }
 
-    function callRelay(relayedData, relayedFoo) {
-        console.log(relayedData);
-        relayedFoo(relayedData);
-    }
 
     function relayResponse(data) {
         console.log(data);
