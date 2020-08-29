@@ -1,11 +1,18 @@
-import { NBAService } from './modules/apiServices.js';
+import { NBAService, dataService } from './modules/services.js';
+import {Data} from  './modules/DAL.js';
+import {Logic} from './modules/logic.js';
 
 (function main(window) {
     const nbaServ = new NBAService();
+    const dataServ = new dataService();
+    const DB = new Data();
+    const BL = new Logic();
 
     document.addEventListener("DOMContentLoaded", () => {
         const btnEl = document.getElementById("resBTN");
         btnEl.addEventListener("click", getResponseAsync, false);
+        getDataAsync();
+
     });
     //#region 
     // function getResponse() {
@@ -46,6 +53,28 @@ import { NBAService } from './modules/apiServices.js';
     //     response();
     // }
     //#endregion
+   
+     async function getDataAsync(){
+        await dataServ.getTeamsAsync();
+        await dataServ.getGamesAsync();
+        await dataServ.getPlayersAsync();
+        let teams = dataServ.getTeamsJson();
+        let games = dataServ.getGamesJson();
+        let players = dataServ.getPlayersJson();
+        DB.setTeamsValue(teams);
+        DB.setGamesValue(games);
+        DB.setPlayersValue(players);
+        BL.setTeams(DB.getTeamsValue());
+        BL.setGames(DB.getGamesValue());
+        BL.setPlayers(DB.getPlayersValue());
+
+
+        console.log(DB.getTeamsValue());
+        console.log(DB.getGamesValue());
+        console.log(DB.getPlayersValue());
+        // לחזור על הפעולות פה גם עם השחקנים והמשחקים
+    };
+   
     async function getResponseAsync() {
         const inputGroup = document.getElementById("group");
         const inputSpecific = document.getElementById("specific");
@@ -53,6 +82,8 @@ import { NBAService } from './modules/apiServices.js';
         await nbaServ.getSpecificAsync(inputGroup.value, inputSpecific.value);
         let res = nbaServ.getJsonValue();
         relayResponse(res);
+        let playerSearch = await BL.searchPlayersAsync(inputSpecific.value);
+        relayResponse(playerSearch);
         console.log('end of getResponse');
     }
 
